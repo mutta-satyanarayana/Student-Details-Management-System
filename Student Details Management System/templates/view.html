@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+<u><h1 align="center" bgcolor="green">User Details</h1></u>
+<hr>
+Name ---> {{user.name}}<br>
+Mobile Number ---> {{user.mobile}}<br>
+Gender ----> {{user.gender}}<br>
+Mail ID ---> {{user.email}}<br>
+Password ---> {{user.password}}<br>
+Your Uploaded Image --->
+<img src="/static/images/{{user.image}}" width="150px" height="150px"><br>
+
+{% endblock %}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="index.css">
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+
+#hideMe {
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+} 
+body {
+  font-size: 28px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: blue;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: green;
+}
+
+.active {
+  background-color: yellow;
+}
+</style>
+</head>
+<body>
+
+<ul>
+  <li><a href="{{url_for('home')}}">
+<img src="/static/images/logo.gif" alt="logo" width="40px" height="40px"></a></li>
+<li><a href="{{url_for('home')}}">Home</a></li>
+
+  {% if 'email' not in session %}
+  <li><a href="{{url_for('register')}}">Register</a></li>
+  <li><a href="{{url_for('login')}}">Login</a></li>
+  {% endif %}
+
+  {% if 'email' in session %}
+  <li><a href="{{url_for('view')}}">View</a></li>
+  <li><a href="{{url_for('update')}}">Update</a></li>
+  <li><a href="{{url_for('delete')}}">UnRegister</a></li>
+  <li><a href="{{url_for('logout')}}">Logout</a></li>
+  {% endif %}
+  
+  <li><a href="{{url_for('contact')}}">Contact us</a></li>
+<li>{{session['email']}}</li>
+</ul>
+
+<ul>
+  {% with messages=get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    {% for category,message in messages %}
+      <!--<div class="alert alert-{{category}} alert-dismissible">-->
+      <div id="hideMe" style="background-color:red">
+        <a href="#" class="close" data-dismiss="alert" area-label="close">&times;</a>
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+</ul>
+{% block content %}
+
+{# register.html data added in this 
+block content #}
+
+{% endblock %}
+</body>
+</html>

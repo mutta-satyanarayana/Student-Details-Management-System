@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+{% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body {
+  font-family: arial;
+  background-color: black;
+  border: 2px solid #ddd;
+}
+
+* {
+  box-sizing: border-box;
+
+}
+.container {
+  padding: 10px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.radio{
+  display: flex;
+  flex-direction: row;
+}
+
+
+input[type=text], input[type=password],input[type=email],input[type=number] {
+  width: 98%;
+  padding: 15px;
+  margin: 1%;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  margin: 8px;
+  border: none;
+  cursor: pointer;
+  width: 98%;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 20;
+}
+
+a {
+  color: dodgerblue;
+}
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+</style>
+
+<form action="{{url_for('update')}}" method="POST" enctype="multipart/form-data">
+  <div class="container">
+    <h1 style="text-align:center;color:green">Update</h1><hr>
+    <p style="color:red">Please fill all the details *</p>
+    <hr>
+    <label for="Name"><b>Name</b></label>
+    <input type="text" placeholder="Enter Name" value="{{user.name}}"  name="name" required><br>
+
+    <label for="number"><b>Mobile number</b></label>
+    <input type="number" placeholder="Enter Mobilenumber" value="{{user.mobile}}"  name="number" required><br>
+    <label for="gender"><b>Gender</b></label><br>
+    
+    <div class="radio">
+    {% if user.gender=="male" %}
+    {% set male="checked" %}
+    {% elif user.gender=="female" %}
+    {% set female="checked" %}
+    {% else %}
+    {% set other="checked" %}
+    {% endif %}
+      <input type="radio" name="gender" value="male" {{male}}>Male<br>
+      <input type="radio" name="gender" value="female" {{female}}}>Female<br>
+      <input type="radio" name="gender" value="other" {{other}}>Other<br>
+    </div>
+
+<br>  
+    <label for="email"><b>Email</b></label>
+    <input type="email" placeholder="Enter Email"  value="{{user.email}}" name="email" readonly><br>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" value="{{user.password}}" name="psw" required><br>
+
+    <b>Select image: </b><input type="file" name="img" multiple"><br>
+
+    <input type="submit" value="Update">
+
+</form>
+{% endblock %}
